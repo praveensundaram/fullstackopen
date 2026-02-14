@@ -1,51 +1,32 @@
-// Header component: displays course name
-const Header = ({ course }) => <h1>{course}</h1>;
+import { useState } from 'react'
 
-const Part = ({ part, exercise}) => <p>{part} {exercise}</p>
+const Statistics = (props) => (
+  <p>{props.name} : {props.count}</p>
+)
+const Button = (props) => (
+  <button onClick={props.onClick}>
+    {props.name}
+  </button>
+)
 
-// Content component: displays a part and its number of exercises
-const Content = ({ parts }) => (
-  <div>
-    <Part part={parts[0].name} exercise={parts[0].exercises} />
-    <Part part={parts[1].name} exercise={parts[1].exercises} />
-    <Part part={parts[2].name} exercise={parts[2].exercises} />
+const App = () => {
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  return (
+    <div>
+      <h1>Give feedback</h1>
+      <Button name="good" onClick={() => setGood(good + 1)} />
+      <Button name="neutral" onClick={() => setNeutral(neutral + 1)} />
+      <Button name="bad" onClick={() => setBad(bad + 1)}  />
+      <h1>Statistics</h1>
+      <Statistics name="good" count={good}/>
+      <Statistics name="neutral" count={neutral}/>
+      <Statistics name="bad" count={bad}/>
     </div>
-);
+  )
+}
 
-// Total component: displays the total number of exercises
-const Total = ({ parts }) => (
-  <p>Number of exercises {parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>
-);
-
-
-
-
-  const App = () => {
-    const course = {
-      name: 'Half Stack application development',
-      parts: [
-        {
-          name: 'Fundamentals of React',
-          exercises: 10
-        },
-        {
-          name: 'Using props to pass data',
-          exercises: 7
-        },
-        {
-          name: 'State of a component',
-          exercises: 14
-        }
-      ]
-    }
-
-    return (
-      <div>
-        <Header course={course.name} />
-        <Content parts={course.parts} />
-        <Total parts={course.parts} />
-      </div>
-    )
-  }
-
-export default App;
+export default App
