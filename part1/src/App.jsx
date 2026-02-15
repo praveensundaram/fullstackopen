@@ -1,56 +1,35 @@
 import { useState } from "react";
 
-const StatisticLine = ({ label, value, suffix = "" }) => (
-  <tr>
-    <td>{label}</td>
-    <td>
-      {value}
-      {suffix}
-    </td>
-  </tr>
-);
-
-const Statistics = ({ good, neutral, bad }) => {
-  const total = good + neutral + bad;
-
-  if (total === 0) return <div>No feedback provided</div>;
-
-  const average = (good - bad) / total;
-  const positive = (good * 100) / total;
-
-  return (
-    <table>
-      <tbody>
-        <StatisticLine label="good" value={good} />
-        <StatisticLine label="neutral" value={neutral} />
-        <StatisticLine label="bad" value={bad} />
-        <StatisticLine label="all" value={total} />
-        <StatisticLine label="average" value={average.toFixed(2)} />
-        <StatisticLine label="positive" value={positive.toFixed(1)} suffix=" %" />
-      </tbody>
-    </table>
-  );
-};
-
-const Button = ({ name, onClick }) => <button onClick={onClick}>{name}</button>;
-
 const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  const anecdotes = [
+    "If it hurts, do it more often.",
+    "Adding manpower to a late software project makes it later!",
+    "The first 90 percent of the code accounts for the first 90 percent...",
+    "Any fool can write code that a computer can understand...",
+    "Premature optimization is the root of all evil.",
+    "Debugging is twice as hard as writing the code...",
+    "Programming without an extremely heavy use of console.log...",
+    "The only way to go fast, is to go well."
+  ];
+
+  const generateRandomNumber = (max) =>
+    Math.floor(Math.random() * max);
+
+  const [selected, setSelected] = useState(0);
 
   return (
     <div>
-      <h1>Give feedback</h1>
-      <Button name="good" onClick={() => setGood(good + 1)} />
-      <Button name="neutral" onClick={() => setNeutral(neutral + 1)} />
-      <Button name="bad" onClick={() => setBad(bad + 1)} />
+      <p>{anecdotes[selected]}</p>
 
-      <h1>Statistics</h1>
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      <button
+        onClick={() =>
+          setSelected(generateRandomNumber(anecdotes.length))
+        }
+      >
+        next anecdote
+      </button>
     </div>
   );
-}
+};
 
-
-export default App
+export default App;
