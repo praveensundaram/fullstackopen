@@ -1,35 +1,106 @@
-import { useState } from "react";
+// const Header = (props) => <h1>{props.course}</h1>
 
-const App = () => {
-  const anecdotes = [
-    "If it hurts, do it more often.",
-    "Adding manpower to a late software project makes it later!",
-    "The first 90 percent of the code accounts for the first 90 percent...",
-    "Any fool can write code that a computer can understand...",
-    "Premature optimization is the root of all evil.",
-    "Debugging is twice as hard as writing the code...",
-    "Programming without an extremely heavy use of console.log...",
-    "The only way to go fast, is to go well."
-  ];
+// const Content = (props) => (
+//   <div>
+//     <Part part={props.parts[0]} />
+//     <Part part={props.parts[1]} />
+//     <Part part={props.parts[2]} />
+//   </div>
+// )
 
-  const generateRandomNumber = (max) =>
-    Math.floor(Math.random() * max);
+// const Part = (props) => (
+//   <p>
+//     {props.part.name} {props.part.exercises}
+//   </p>
+// )
 
-  const [selected, setSelected] = useState(0);
+// const Total = (props) => <p>Number of exercises {props.total}</p>
 
+// const App = () => {
+//   const course = {
+//     name: 'Half Stack application development',
+//     parts: [
+//       {
+//         name: 'Fundamentals of React',
+//         exercises: 10,
+//       },
+//       {
+//         name: 'Using props to pass data',
+//         exercises: 7,
+//       },
+//       {
+//         name: 'State of a component',
+//         exercises: 14,
+//       },
+//     ],
+//   }
+
+//   return (
+//     <div>
+//       <Header course={course.name} />
+//       <Content parts={course.parts} />
+//       <Total
+//         total={
+//           course.parts[0].exercises +
+//           course.parts[1].exercises +
+//           course.parts[2].exercises
+//         }
+//       />
+//     </div>
+//   )
+// }
+
+// export default App
+
+const Header = (props) => <h1>{props.course}</h1>
+
+const Content = (props) => (
+  <div>
+    <Part part={props.parts[0]} />
+    <Part part={props.parts[1]} />
+    <Part part={props.parts[2]} />
+  </div>
+)
+
+const Part = (props) => (
+  <p>
+    {props.part.name} {props.part.exercises}
+  </p>
+)
+
+const Course = ( {course} ) => {
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-
-      <button
-        onClick={() =>
-          setSelected(generateRandomNumber(anecdotes.length))
-        }
-      >
-        next anecdote
-      </button>
+       <Header course={course.name} />
+       <Content parts={course.parts} />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+const App = () => {
+  const course = {
+    id: 1,
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      }
+    ]
+  }
+
+  return <Course course={course} />
+}
+
+export default App
