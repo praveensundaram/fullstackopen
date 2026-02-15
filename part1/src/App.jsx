@@ -8,7 +8,7 @@ const Content = (props) => (
     <Part part={props.parts[0]} />
     <Part part={props.parts[1]} />
     <Part part={props.parts[2]} />
-    <Total total={ props.parts[0].exercises + props.parts[1].exercises +props.parts[2].exercises } />
+    <Total total={ props.parts.reduce ((sum , part) => sum+part.exercises , 0 )} />
   </div>
 )
 
