@@ -18,13 +18,19 @@ const App = () => {
   const newNameOnSubmit = (event) => {
     event.preventDefault();
 
-    const person = {
-      id: persons.length + 1,
-      name: newName
-    };
+    if (persons.reduce((nameList, person) => nameList.concat(person.name), []).includes(newName)) {
+      alert(`${newName} is already added to the phonebook`);
+    }
+    else {
+      const person = {
+        id: persons.length + 1,
+        name: newName
+      };
 
-    setPersons(persons.concat(person));
-    setNewName("");
+      setPersons(persons.concat(person));
+      setNewName("");
+    }
+
   };
 
   return (
